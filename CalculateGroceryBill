@@ -1,0 +1,53 @@
+package grocery;
+import java.util.Scanner;
+
+public class CalculateGroceryBill {
+    public static void main(String[] args) {
+        // Create Scanner object for reading user input
+        Scanner input = new Scanner(System.in);
+
+        // Prompt the user for the coupon amount as a decimal (e.g., 0.10 for 10%)
+        System.out.print("Enter coupon amount as a decimal (example: .10): ");
+        double coupon = input.nextDouble();
+
+        // Validate coupon value: must be between 0 (exclusive) and 1 (inclusive)
+        if (coupon > 1 || coupon <= 0) {
+            System.out.println("Invalid coupon amount. Setting coupon to 10%.");
+            coupon = 0.10; // Default to 10% if input is invalid
+        }
+
+        // Create an array to store weekly grocery bills for 4 weeks
+        double[] bills = new double[4];
+
+        // Loop to prompt and read grocery bills for each week
+        for (int week = 0; week < 4; week++) {
+            System.out.print("Enter grocery bill for week " + (week + 1) + ": ");
+            bills[week] = input.nextDouble();
+        }
+
+        // Calculate monthly total by summing all four weekly bills
+        double monthlyTotal = 0;
+        for (double bill : bills) {
+            monthlyTotal += bill;
+        }
+
+        // Calculate weekly average by dividing monthly total by 4
+        double weeklyAverage = monthlyTotal / 4;
+
+        // Apply coupon discount to monthly total and weekly average
+        double monthlyTotalWithCoupon = monthlyTotal * (1 - coupon);
+        double weeklyAverageWithCoupon = weeklyAverage * (1 - coupon);
+
+        // Display results without coupon
+        System.out.println("\n--- Grocery Cost Summary ---");
+        System.out.printf("Monthly Total (No Coupon): $%.2f%n", monthlyTotal);
+        System.out.printf("Weekly Average (No Coupon): $%.2f%n", weeklyAverage);
+
+        // Display results with coupon applied
+        System.out.printf("Monthly Total (With Coupon): $%.2f%n", monthlyTotalWithCoupon);
+        System.out.printf("Weekly Average (With Coupon): $%.2f%n", weeklyAverageWithCoupon);
+
+        // Close the Scanner object to prevent resource leak
+        input.close();
+    }
+}
