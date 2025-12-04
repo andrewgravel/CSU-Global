@@ -1,0 +1,67 @@
+package captureGradeStatistics;
+
+import java.util.Scanner;
+
+public class CaptureGradeStatistics {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        double[] grades = new double[10];   // Store inputs
+        int index = 0;                      // Tracks number of grades entered
+
+        System.out.println("Enter 10 floating-point grades between 0 and 100:");
+
+        // Collect exactly 10 grades
+        while (index < grades.length) {
+            System.out.print("Grade " + (index + 1) + ": ");
+
+            double grade = readDouble(scanner);  // validated numeric input
+            
+            // Ensure grade is between 0 and 100
+            while (grade < 0 || grade > 100) {
+                System.out.print("Grade must be between 0 and 100. Try again: ");
+                grade = readDouble(scanner);
+            }
+
+            grades[index] = grade;
+            index++;
+        }
+
+        double total = 0;
+        double max = grades[0];
+        double min = grades[0];
+
+        // Process all grades
+        for (double g : grades) {
+            total += g;
+
+            if (g > max) {
+                max = g;
+            }
+            if (g < min) {
+                min = g;
+            }
+        }
+
+        double average = total / grades.length;
+
+        // Output final results
+        System.out.println("\n===== Grade Statistics =====");
+        System.out.printf("Average: %.2f%n", average);
+        System.out.printf("Maximum: %.2f%n", max);
+        System.out.printf("Minimum: %.2f%n", min);
+    }
+
+    /**
+     * Reads a valid double from the user. Continues asking until valid input is given.
+     */
+    private static double readDouble(Scanner scanner) {
+        while (!scanner.hasNextDouble()) {
+            System.out.print("Invalid input. Enter a numeric value: ");
+            scanner.next(); // discard invalid entry
+        }
+        return scanner.nextDouble();
+    }
+}
