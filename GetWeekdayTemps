@@ -1,0 +1,123 @@
+package getWeeklyTemps;  
+
+ 
+
+import java.util.ArrayList; 
+
+import java.util.Arrays; 
+
+import java.util.Scanner; 
+
+ 
+
+public class GetWeeklyTemps { 
+
+ 
+
+public static void main(String[] args) { 
+
+Scanner scanner = new Scanner(System.in); 
+
+ 
+
+// Days of the week 
+
+ArrayList<String> weekDays = new ArrayList<>(Arrays.asList( 
+
+"Monday", "Tuesday", "Wednesday", "Thursday", 
+
+"Friday", "Saturday", "Sunday" 
+
+)); 
+
+ 
+
+// Average temperatures 
+
+ArrayList<Double> dailyTemps = new ArrayList<>(Arrays.asList( 
+
+52.4, 49.8, 55.1, 58.3, 60.0, 62.5, 59.2 
+
+)); 
+
+ 
+
+// **Upfront instructions** 
+
+System.out.println("Welcome to the Weekly Temperature Viewer!"); 
+
+System.out.println("Please type a full weekday name (e.g., Monday) to see its temperature."); 
+
+System.out.println("Or type 'week' to see all days and the weekly average."); 
+
+System.out.println("Type 'exit' to quit the program.\n"); 
+
+ 
+
+while (true) { 
+
+System.out.print("Your selection: "); 
+
+String userInput = scanner.nextLine().trim().toLowerCase(); 
+
+ 
+
+if (userInput.equals("exit")) { 
+
+System.out.println("Goodbye! Program terminated."); 
+
+break; 
+
+} 
+
+ 
+
+if (userInput.equals("week")) { 
+
+double total = 0; 
+
+System.out.println("\n--- Weekly Temperature Report ---"); 
+
+for (int i = 0; i < weekDays.size(); i++) { 
+
+double temp = dailyTemps.get(i); 
+
+System.out.println(weekDays.get(i) + ": " + temp + "°F"); 
+
+total += temp; 
+
+} 
+
+System.out.printf("Average Temperature for the Week: %.2f°F%n%n", total / weekDays.size()); 
+
+} else { 
+
+// Format input to match day names 
+
+String dayFormatted = userInput.substring(0, 1).toUpperCase() + userInput.substring(1); 
+
+int dayIndex = weekDays.indexOf(dayFormatted); 
+
+ 
+
+if (dayIndex != -1) { 
+
+System.out.println(dayFormatted + ": " + dailyTemps.get(dayIndex) + "°F\n"); 
+
+} else { 
+
+System.out.println("Invalid input. Please type the full weekday (e.g., Monday) or 'week'.\n"); 
+
+} 
+
+} 
+
+} 
+
+ 
+
+scanner.close(); 
+
+} 
+
+} 
